@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  postgres_db:
+    hostname: postgres
+    image: postgres:alpine3.16
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - 5432:5432
+
+  pgadmin:
+    hostname: pgadmin
+    image: dpage/pgadmin4:6
+    volumes:
+      - ./servers.json:/pgadmin4/servers.json
+      - ./pgpass:/pgadmin4/pgpass
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}    
+    ports:
+      - 5050:80
